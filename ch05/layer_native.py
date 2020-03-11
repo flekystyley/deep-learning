@@ -11,6 +11,7 @@ class MulLayer:
         out = x * y
 
         return out
+        
     def backword(self, dout):
         dx = dout * self.y
         dy = dout * self.x
