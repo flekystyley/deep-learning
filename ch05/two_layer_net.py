@@ -8,6 +8,10 @@ from collections import OrderedDict
 
 class TwoLayerNet:
     
+    # input_size -> 入力層の数
+    # input_size -> 隠れ層の数
+    # input_size -> 出力層の数
+    # input_size -> ガウス分布スケール
     def __init__(self, input_size, hidden_size, output_size, weight_init_std = 0.01):
         # 重みの初期化
         self.params = {}
@@ -17,12 +21,13 @@ class TwoLayerNet:
         self.params['b2'] = np.zeros(output_size)
 
         # レイヤの生成
-        # layersは複数のレイヤを保持した物
+        # layersは順番付きディクショナリニューラルネットワークのレイヤーを保持する物
         self.layers = OrderedDict()
         self.layers['Affine1'] = Affine(self.params['W1'], self.params['b1'])
         self.layers['Relu1'] = Relu()
         self.layers['Affine2'] = Affine(self.params['W2'], self.params['b2'])
 
+        # ニューラルネットワーク最後のレイヤー
         self.lastLayer = SoftmaxWithLoss()
 
     def predict(self, x):
@@ -64,7 +69,7 @@ class TwoLayerNet:
         dout = 1
         dout = self.lastLayer.backward(dout)
         
-        layers = list(self.layers.value())
+        layers = list(self.layers.values())
         layers.reverse()
         for layer in layers:
             dout = layer.backward(dout)
