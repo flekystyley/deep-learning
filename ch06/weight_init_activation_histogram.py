@@ -12,7 +12,7 @@ def tanh(x):
     return np.tanh(x)
 
 input_data = np.random.randn(1000, 100)
-node_num = 100
+node_num = 100 # 各隠れ層のノード. 100個のニューロン
 hidden_layer_size = 5
 activations = {}
 
@@ -22,7 +22,8 @@ for i in range(hidden_layer_size):
     if i != 0:
         x = activations[i-1]
 
-    w = np.random.randn(node_num, node_num) * 1
+    # w = np.random.randn(node_num, node_num) * 0.01
+    w = np.random.randn(node_num, node_num) * np.sqrt(1.0 / node_num)    
 
     a = np.dot(x, w)
         
